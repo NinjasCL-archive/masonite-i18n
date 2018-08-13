@@ -18,19 +18,21 @@ class InstallCommand(Command):
         create_or_append_config(
             os.path.join(
                 package_directory,
-                '../locale/configs/locale.py'
+                '../locale/snippets/configs/locale.py'
             )
         )
 
+        # Create Resources
         directory = os.path.join(os.getcwd(), 'resources/lang/default/')
         lang = os.path.join(directory, '__init__.py')
 
-        template = os.path.join(package_directory, '../locale/resources/lang/default/__init__.py')
+        template = os.path.join(package_directory, '../locale/snippets/resources/lang/default/__init__.py')
 
         if not os.path.exists(directory):
             os.makedirs(directory)
 
         if not os.path.isfile(lang):
             shutil.copyfile(template, lang)
+            print('\033[92mDefault Locale Configuration File Created!\033[0m')
 
 

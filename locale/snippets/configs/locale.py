@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ''' Locale i18n Settings '''
 
 '''
