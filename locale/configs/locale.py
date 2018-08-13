@@ -1,3 +1,5 @@
+''' Locale i18n Settings '''
+
 '''
 |--------------------------------------------------------------------------
 | Application Locale Configuration
