@@ -5,9 +5,11 @@ name = "pypi"
 
 [packages]
 hjson = "*"
+masonite = "*"
 
 [dev-packages]
-masonite-cli = "*"
+pytest = "*"
+coveralls = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.4"
