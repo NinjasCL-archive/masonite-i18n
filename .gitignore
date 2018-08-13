@@ -102,3 +102,12 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Visual Studio
+.vscode/

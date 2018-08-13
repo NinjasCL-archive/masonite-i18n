@@ -1,0 +1,7 @@
+
+include locale/commands/*
+include locale/configs/*
+include locale/helpers/*
+include locale/middlewares/*
+include locale/providers/*
+include locale/resources/*
