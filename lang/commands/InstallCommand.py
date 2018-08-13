@@ -8,9 +8,9 @@ package_directory = os.path.dirname(os.path.realpath(__file__))
 
 class InstallCommand(Command):
     """
-    Installs needed configuration lang files into a Masonite project
-    ​
-    lang:install
+    Installs the i18n basic configuration and resources
+​
+    install:lang
     """
 
     def handle(self):
