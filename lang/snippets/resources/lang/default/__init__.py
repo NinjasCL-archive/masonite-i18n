@@ -12,7 +12,7 @@ Attributes:
     ## Required
 
     name (string, required): Must be url valid. Used in routes and other places
-    for locale identification. The convention is to match the directory name.
+    for lang identification. The convention is to match the directory name.
 
     title (string, required): Used for descriptions in logs or other places
 

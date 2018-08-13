@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-''' Locale i18n Settings '''
+''' locale i18n Settings '''
 
 '''
 |--------------------------------------------------------------------------
-| Application Locale Configuration
+| Application locale Configuration
 |--------------------------------------------------------------------------
 |
 | The application locale determines the default locale that will be used
@@ -16,7 +16,7 @@ LOCALE = 'default'
 
 '''
 |--------------------------------------------------------------------------
-| Application Fallback Locale
+| Application Fallback locale
 |--------------------------------------------------------------------------
 |
 | The fallback locale determines the locale to use when the current one

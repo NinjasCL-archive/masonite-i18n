@@ -1,3 +1,3 @@
-recursive-include locale *
-prune locale/*.gitkeep
-prune locale/*.DS_Store
+recursive-include lang/snippets *
+prune lang/*.gitkeep
+prune lang/*.DS_Store
