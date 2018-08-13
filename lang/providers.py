@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-""" A lang Install Service Provider """
+""" A Language Locale Service Provider """
 
 from masonite.provider import ServiceProvider
 from lang.commands.InstallCommand import InstallCommand
 
-class InstallProvider(ServiceProvider):
+class LangProvider(ServiceProvider):
 
     wsgi = False
 
