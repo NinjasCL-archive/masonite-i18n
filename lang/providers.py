@@ -2,14 +2,14 @@
 """ A Language Locale Service Provider """
 
 from masonite.provider import ServiceProvider
-from lang.commands.InstallCommand import InstallCommand
+from lang.commands.LangInstallCommand import LangInstallCommand
 
 class LangProvider(ServiceProvider):
 
     wsgi = False
 
     def register(self):
-        self.app.bind('LangInstallCommand', InstallCommand())
+        self.app.bind('LangInstallCommand', LangInstallCommand())
 
     def boot(self):
         pass
