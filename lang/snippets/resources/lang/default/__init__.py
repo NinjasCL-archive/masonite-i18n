@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 ''' Locale Configuration File
 
@@ -18,12 +18,18 @@ Attributes:
 
     ## Optional
 
-    enabled (bool, optional, default=True): Tells if the language is available for use.
+    enabled (bool, optional, default=True): Tells if the language is
+            available for use.
 
     intervals = {
-        'few' : (string, optional, default=1,25): Stores the 'few' interval used in _n() translation function.
-        'many' : (string, optional, default=25,*): Stores the 'many' interval used in _n() translation function.
-        'other' : (string, optional, default=*): Stores the 'other' interval used in _n() translation function.
+        'few' : (string, optional, default=1,25): Stores the 'few'
+                interval used in _n() translation function.
+
+        'many' : (string, optional, default=25,*): Stores the 'many'
+                interval used in _n() translation function.
+
+        'other' : (string, optional, default=*): Stores the 'other'
+                interval used in _n() translation function.
     }
 '''
 
@@ -34,9 +40,9 @@ title = 'Default'
 # Optional
 enabled = True
 intervals = {
-    'few' : '1,25',
-    'many' : '25,*',
-    'other' : '*'
+    'few': '1,25',
+    'many': '25,*',
+    'other': '*'
 }
 
 # Custom

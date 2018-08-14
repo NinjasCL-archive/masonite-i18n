@@ -6,10 +6,14 @@ name = "pypi"
 [packages]
 hjson = "*"
 masonite = "*"
+fs = "*"
+scandir = "*"
 
 [dev-packages]
+the = "*"
+"flake8" = "*"
+"flake8-import-order" = "*"
 pytest = "*"
-coveralls = "*"
 
 [requires]
-python_version = "3.4"
+python_version = "3.7"
