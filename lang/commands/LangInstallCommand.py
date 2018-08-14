@@ -9,8 +9,8 @@ package_directory = os.path.dirname(os.path.realpath(__file__))
 class LangInstallCommand(Command):
     """
     Installs the i18n basic configuration and resources
-​
-    lang
+
+    install:lang
     """
 
     def handle(self):
@@ -18,7 +18,7 @@ class LangInstallCommand(Command):
         create_or_append_config(
             os.path.join(
                 package_directory,
-                '../../lang/snippets/configs/lang.py'
+                '../snippets/configs/locale.py'
             )
         )
 
@@ -26,7 +26,7 @@ class LangInstallCommand(Command):
         directory = os.path.join(os.getcwd(), 'resources/lang/default/')
         lang = os.path.join(directory, '__init__.py')
 
-        template = os.path.join(package_directory, '../../lang/snippets/resources/lang/default/__init__.py')
+        template = os.path.join(package_directory, '../snippets/resources/lang/default/__init__.py')
 
         if not os.path.exists(directory):
             os.makedirs(directory)
