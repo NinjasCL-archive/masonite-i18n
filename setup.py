@@ -19,7 +19,7 @@ setup(
     author = 'Camilo Castro',
     author_email = 'camilo@ninjas.cl',
     description = 'Provides i18n to Masonite',
-    url = 'https://github.com/clsource/masonite-i18n',
+    url = 'https://github.com/NinjasCL-labs/masonite-i18n',
     install_requires = [
         'hjson',
         'masonite',
