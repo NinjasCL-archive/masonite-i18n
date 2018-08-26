@@ -1,26 +1,34 @@
 # coding: utf-8
 
 from cleo import Command
-from fs import open_fs
+from lang.helpers import filesystem
 from fs.copy import copy_file
-
-from lang import package_directory
 
 
 class InstallCommand(Command):
-    '''
+    """
     Installs the i18n basic configuration and resources
 
     install:lang
         {--m|mock : Mocks the filesystem for testing}
-    '''
+    """
+
+    def __init__(self):
+        super(InstallCommand, self).__init__()
+        self.fs_app = None
+        self.fs_pkg = None
+        self.mock = True
+        self.quiet = True
 
     def handle(self):
         self.trigger(self.option('mock'), self.option('verbose'))
 
-    def trigger(self, mock = False, silent = True):
+    def mock_handle(self):
+        return self.trigger(mock=True)
 
-        command = self.init(mock, silent)
+    def trigger(self, mock=False, quiet=True):
+
+        command = self.init(mock, quiet)
 
         command.create_lang_resources()
         command.create_config_resources()
@@ -29,28 +37,24 @@ class InstallCommand(Command):
 
         return command.fs_app
 
-    def init(self, mock = False, silent = True):
-        # fs_opener tells which filesystem to use
-        # See https://docs.pyfilesystem.org/en/latest/openers.html
-        # We will use the current dir in the operating system fs as default value
+    def init(self, mock=False, quiet=True):
 
-        fs_opener = 'osfs://.'
+        fs_app = filesystem.get.os()
 
         if mock:
-            silent or self.info('Mock mode activated. Using memory filesystem.')
-            fs_opener = 'mem://'
+            quiet or self.info('Mock mode activated. Using memory filesystem.')
+            fs_app = filesystem.get.mock()
 
-        fs_app = open_fs(fs_opener)
-        fs_pkg = open_fs(package_directory)
+        fs_pkg = filesystem.get.package()
 
-        return self.init_with_fs(fs_app, fs_pkg, mock, silent)
+        return self.init_with_fs(fs_app, fs_pkg, mock, quiet)
 
-    def init_with_fs(self, fs_app, fs_pkg, mock = False, silent = True):
+    def init_with_fs(self, fs_app, fs_pkg, mock=False, quiet=True):
 
         self.fs_app = fs_app
         self.fs_pkg = fs_pkg
         self.mock = mock
-        self.silent = silent
+        self.quiet = quiet
 
         return self
 
@@ -68,15 +72,15 @@ class InstallCommand(Command):
             filename = '__init__.py'
 
             copy_file(
-                src_fs = self.fs_pkg,
-                src_path = '/snippets/resources/lang/default/' + filename,
-                dst_fs = fs_lang,
-                dst_path = filename
+                src_fs=self.fs_pkg,
+                src_path='/snippets/resources/lang/default/' + filename,
+                dst_fs=fs_lang,
+                dst_path=filename
             )
 
-            self.silent or self.info('Installed /resources/lang/default')
+            self.quiet or self.info('Installed /resources/lang/default')
         else:
-            self.silent or self.info('/resources/lang/default already exists')
+            self.quiet or self.info('/resources/lang/default already exists')
 
         fs_lang.close()
 
@@ -94,14 +98,14 @@ class InstallCommand(Command):
         if not fs_config.isfile(filename):
 
             copy_file(
-                src_fs = self.fs_pkg,
-                src_path = '/snippets/configs/' + filename,
-                dst_fs = fs_config,
-                dst_path = filename
+                src_fs=self.fs_pkg,
+                src_path='/snippets/configs/' + filename,
+                dst_fs=fs_config,
+                dst_path=filename
             )
 
-            self.silent or self.info('Installed /config/locale.py')
+            self.quiet or self.info('Installed /config/locale.py')
         else:
-            self.silent or self.info('/config/locale.py already exists')
+            self.quiet or self.info('/config/locale.py already exists')
 
         fs_config.close()

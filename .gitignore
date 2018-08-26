@@ -111,3 +111,6 @@ Thumbs.db
 
 # Visual Studio
 .vscode/
+
+# Pycharm
+.idea/

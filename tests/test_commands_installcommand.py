@@ -12,10 +12,11 @@ class TestInstallCommand:
         self.locale = '/config/locale.py'
         self.lang = '/resources/lang/default/__init__.py'
 
-    def run(self):
+    @staticmethod
+    def run():
 
         install = InstallCommand()
-        return install.trigger(mock = True)
+        return install.mock_handle()
 
     def test_that_locale_file_was_installed(self):
 
