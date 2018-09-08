@@ -9,8 +9,15 @@ class LangCommand(Command):
     """
     def handle(self):
         self.info('Provides basic (level 1) internationalisation to Masonite.')
-        self.info('')
-        self.info('Remember to configure /config/language.py if you wish to change the default language.')
-        self.info('Be sure to configure /config/middleware.py too and add the middleware for language detection.')
-        self.info('')
-        self.info('Type craft list lang to see available commands.')
+        self.line('')
+
+        self.line('<info>Remember to configure</info><comment> /config/language.py</comment>' +
+                  '<info> if you wish to change the default language.</info>'
+                  )
+
+        self.line('<info>Be sure to configure</info><comment> /config/middleware.py </comment>' +
+                  '<info>too and add the middleware for language detection.</info>'
+                  )
+
+        self.line('')
+        self.line('<info>Type</info> <comment>craft list lang</comment> <info>to see available commands.</info>')
