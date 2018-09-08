@@ -2,38 +2,25 @@
 from cleo import Application, CommandTester
 from the import expect
 
-from lang.commands.InstallCommand import InstallCommand
+from lang.commands.NewCommand import NewCommand
 
 
-class TestInstallCommand:
+class TestNewCommand:
 
     def setup_method(self):
 
-        self.locale = '/config/language.py'
-        self.lang = '/resources/lang/default/__init__.py'
+        self.lang = '/resources/lang/en/__init__.py'
 
     @staticmethod
     def run():
 
-        command = InstallCommand()
+        command = NewCommand()
         return command.handle_mock()
-
-    def test_that_locale_file_was_installed(self):
-
-        result = self.run()
-        expect(result.isfile(self.locale)).to.be.true
 
     def test_that_lang_file_was_installed(self):
 
         result = self.run()
         expect(result.isfile(self.lang)).to.be.true
-
-    def test_that_locale_file_is_not_empty(self):
-
-        result = self.run()
-        contents = result.gettext(self.locale)
-        expect(contents).to.be.a(str)
-        expect(contents).NOT.be.empty
 
     def test_that_lang_file_is_not_empty(self):
 
@@ -45,13 +32,15 @@ class TestInstallCommand:
     def test_that_command_works(self):
 
         application = Application()
-        application.add(InstallCommand())
+        application.add(NewCommand())
 
-        command = application.find('lang:install')
+        command = application.find('lang:new')
         tester = CommandTester(command)
 
         result = tester.execute([
             ('command', command.get_name()),
+            ('name', 'en'),
+            ('title', 'English'),
             ('--mock')
         ])
 
@@ -61,5 +50,4 @@ class TestInstallCommand:
         output = tester.get_display()
 
         expect(output).to.match('Mock mode activated')
-        expect(output).to.match('Installed /resources/lang/default')
-        expect(output).to.match('Installed /config/language.py')
+        expect(output).to.match('Installed /resources/lang/en')

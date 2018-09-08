@@ -1,4 +1,3 @@
 # coding: utf-8
-
-from . import get
-
+from . import load   # noqa, flake8 issue
+from . import paths  # noqa, flake8 issue

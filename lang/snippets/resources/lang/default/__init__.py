@@ -16,13 +16,13 @@ Attributes:
 
     title (string, required): Used for descriptions in logs or other places
 
-    intervals = {
+    intervals = {{
         'few' : (dict, required, default=1,25): Stores the 'few'
                 interval used in plural translation function.
 
         'many' : (dict, required, default=25,*): Stores the 'many'
                 interval used in plural translation function.
-    }
+    }}
 
     ## Optional
 
@@ -32,23 +32,22 @@ Attributes:
 """
 
 # Required
-name = 'default'
-title = 'Default'
+name = '{name}'
+title = '{title}'
 
 # These intervals are used in translation functions
 # In order to pluralize strings.
 # Only few and many are required.
-intervals = {
-    'few': {
+intervals = {{
+    'few': {{
         'from': 1,
         'to': 25
-    },
-    'many': {
+    }},
+    'many': {{
         'from': 25,
         'to': '*'
-    }
-}
+    }}
+}}
 
 # Optional
 enabled = True
-

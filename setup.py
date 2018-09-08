@@ -1,31 +1,27 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
-from lang import version
+from lang import name, version
 
 
 setup(
-    name='masonite-i18n',
+    name=name,
     version=version,
-    packages=[
-        'lang',
-        'lang.commands',
-        'lang.helpers',
-        'lang.middlewares'
-    ],
+    packages=find_packages(),
     license='MIT',
     author='Camilo Castro',
     author_email='camilo@ninjas.cl',
-    description='Provides i18n to Masonite',
+    description='Provides Basic i18n to Masonite',
     url='https://github.com/NinjasCL-labs/masonite-i18n',
     install_requires=[
         'hjson',
         'masonite',
         'cleo',
         'fs',
-        'scandir'
+        'scandir',
+        'jinja2'
     ],
     keywords=['i18n', 'translation', 'python3', 'masonite'],
     include_package_data=True,
