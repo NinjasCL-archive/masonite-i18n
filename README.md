@@ -70,11 +70,6 @@ context of each project's database.
 ### Translation Files
 For storing the string translations it will be used [HJSON](https://hjson.org/) files. These have an advantage over [*po* and *mo*](https://es.wikipedia.org/wiki/Gettext) files since they could be easily edited without special tooling. They have an advantage over raw *json* files because they are more human friendly (tolerate trailing commas, have comments and multiline strings). Finally they are better than just python code because they could be easily swaped on runtime without much hazzle.
 
-#### Why use files instead of database rows?
-The main reason is that you should keep your translation files in version controlled repository. Your project evolves over time and translations should be alongside the code that use them. If you store them in a database you risk forgetting to backup the latest version or have conflicting changes between versions. 
-
-This *only applies to static content*. Dynamic content translations must be stored in the same place as the content (database). But the implementation depends on each project and is beyond this translation tool.
-
 #### Storage
 The translation files will be stored inside the `resources/lang/{name}` directory. Where `{name}` must be replaced with a desired language name (recommended an [ISO 639-1 or 639-2](http://www.loc.gov/standards/iso639-2/php/code_list.php) based name). The name is important since it will be matched against the lang param provided by the request middleware.
 
@@ -150,109 +145,6 @@ intervals = {
 enabled = True
 ```
 
-###### Example with additional info
-The additional info could be anything that can be used 
-for localization purposes using other tools or functions.
-
-
-```hjson
-  
-  # Information obtained from http://www.localeplanet.com
-  country: US
-  country_name: United States
-  currency : {
-	  symbol: US$
-	  code: USD
-	  symbol_native: $
-	  decimal_digits: 2
-	  rounding: 0
-  }
-  date_format_symbols:
-  {
-    am_pm:
-    [
-      AM
-      PM
-    ]
-    day_name:
-    [
-      Sunday
-      Monday
-      Tuesday
-      Wednesday
-      Thursday
-      Friday
-      Saturday
-    ]
-    day_short:
-    [
-      Sun
-      Mon
-      Tue
-      Wed
-      Thu
-      Fri
-      Sat
-    ]
-    era:
-    [
-      BC
-      AD
-    ]
-    era_name:
-    [
-      Before Christ
-      Anno Domini
-    ]
-    month_name:
-    [
-      January
-      February
-      March
-      April
-      May
-      June
-      July
-      August
-      September
-      October
-      November
-      December
-    ]
-    month_short:
-    [
-      Jan
-      Feb
-      Mar
-      Apr
-      May
-      Jun
-      Jul
-      Aug
-      Sep
-      Oct
-      Nov
-      Dec
-    ]
-    order_full: MDY
-    order_long: MDY
-    order_medium: MDY
-    order_short: MDY
-  }
-  decimal_format_symbols:
-  {
-    decimal_separator: .
-    grouping_separator: ","
-    minus: -
-  }
-  language_code: en
-  language_name: English
-  locale: en-US-POSIX
-  locale_underscore: en_US-POSIX
-  locale_name: English (United States, Computer)
-}
-```
-
 ##### `{translation-file}.hjson`
 All files would be stored in the same folder and the naming convention would be the following:
 
@@ -323,15 +215,12 @@ resources/
     lang/
         default/
             __init__.py
-            locale.hjson
         ch/
             __init__.py
-            locale.hjson
             resources--templates--welcome-html.py
             app--http--controllers--welcomecontroller-py.hjson
         es/
             __init__.py
-            locale.hjson
             resources--templates--welcome-html.py
             app--http--controllers--welcomecontroller-py.hjson
 
