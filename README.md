@@ -1,5 +1,5 @@
 # Masonite i18n
-This project aims to bring internationalization (*i18n*) tools and helpers to [Masonite Framework](https://masoniteproject.com).
+This project aims to bring internationalisation (*i18n*) tools and helpers to [Masonite Framework](https://masoniteproject.com).
 
 ## Code
 The development code will be stored in the `master` branch and production ready code will be stored in the `production` branch.
@@ -13,6 +13,40 @@ In all places where communication is needed (issues, pull requests, chat). Just 
 ### Changelog
 [Changelog](CHANGELOG.md)
 
+### Blessing
+
+[![This software is Blessed](https://img.shields.io/badge/blessed-100%25-770493.svg)](BLESSING.md)
+
+## Internationalisation
+Taken from [http://www.tonymarston.net](http://web.archive.org/web/20171005184233/http://www.tonymarston.net/php-mysql/internationalisation.html).
+
+The term "internationalisation" is sometimes referred 
+to as "globalisation" or "localisation", but what does it actually mean? 
+The following description is taken from 
+[java.sun.com](http://web.archive.org/web/20121004070052/http://docs.oracle.com/javase/1.4.2/docs/guide/intl/):
+
+> Internationalisation is the process of designing an application so that it can be adapted to various languages and regions without engineering changes. Sometimes the term internationalisation is abbreviated as i18n, because there are 18 letters between the first "i" and the last "n."
+> An internationalised program has the following characteristics:
+>
+> - With the addition of localization data, the same executable can run worldwide.
+>
+> - Textual elements, such as status messages and the GUI component labels, are not hard coded in the program. Instead they are stored outside the source code and retrieved dynamically.
+>
+> - Support for new languages does not require recompilation.
+>
+> - Culturally-dependent data, such as dates and currencies, appear in formats that conform to the end user's region and language.
+>
+> - It can be localized quickly.
+
+Internationalisation in a software application covers the ability to communicate with a user in his/her own language. It can be said to exist at the following levels:
+
+- Level 0: No internationalisation - the software cannot function in any language other than the one in which it was developed.
+
+- Level 1: Uni-lingual - the software can work in a single language, but each installation can use a different language. The contents of the application database is uni-lingual and does not have any facilities to provide translations in other languages.
+
+- Level 2: Multi-lingual - the software can work in several languages at the same time, and the application database contains translations of relevant text in all the supported languages. The relevant translation is retrieved as required.
+
+
 ## Core Desing
 The main design is inspired on the implementations used in different projects, mainly: [Processwire](https://processwire.com), [Laravel](https://laravel.com) and [Rails](https://rubyonrails.org/). The goal is having a system that could be easily used and implement only the parts that are needed for a strong i18n support in *static* files. Unlike other frameworks or tools that try to do too much, this implementation will rely on the tools already provided by Python focusing only in the translation helpers. You could see the original discussion topic [here](https://github.com/MasoniteFramework/core/issues/235).
 
@@ -25,8 +59,12 @@ Is best to know what are you doing. Too many times a framework do '*magic*' tric
 ### Pythonic as possible
 The project would strive to design an API simple to use. Inspired by libs such as [Requests](http://docs.python-requests.org/en/master/). The API should be similar to gettext function calls in order to facilitate adoption.
 
-### Focus on Translation Only
-Other more advanced tools like [Babel](http://babel.pocoo.org/en/latest/) implement localization functions like currency and date format. This project aims to bring just the needed tools for text translation (message, catalogs and pluralization).
+### Focus on Static File Translation Only
+Other more advanced tools like [Babel](http://babel.pocoo.org/en/latest/) implement localization functions like currency and date format. This project aims to bring just the needed tools for text translation (message, catalogs and pluralization) in static files.
+
+In other words this project aims to bring *Level 1* internationalization support for Masonite applications.
+*Level 2* should be reached by the developer of each application because it depends on the
+context of each project's database.
 
 
 ### Translation Files
