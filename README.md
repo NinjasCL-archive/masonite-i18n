@@ -46,7 +46,7 @@ The special `resources/lang/default` directory will be used as the main translat
 Using this structure any language could be the default translation, just put the correct files inside the default folder, no need for configuration. Optionally it can be configured to another default directory if desired too.
 
 #### Config
-The configuration file will be called `lang.py` and it will be inside the `config` directory.
+The configuration file will be called `language.py` and it will be inside the `config` directory.
 
 The contents would be similar to:
 
@@ -94,58 +94,30 @@ This file contains the needed data for the system to detect the language as vali
 ###### Example
 
 ```python
-name = 'en'
-title = 'English'
+
+name = 'default'
+title = 'Default'
+
+intervals = {
+    'few': {
+        'from': 1,
+        'to': 25
+    },
+    'many': {
+        'from': 25,
+        'to': '*'
+    }
+}
+
 enabled = True
 ```
 
-##### `locale.hjson`
-This file is optional and contains the locale information related to the language. The only really used part is the `intervals` key. Other keys are optional and should be filled as needed.
-
-###### Example
-
-```hjson
-{
-	intervals : {
-	  	# These intervals are used in translation functions
-	  	# In order to pluralize strings.
-	  	few : {
-	  		from : 1
-	  		to : 25
-	  	}
-	  	many : {
-	  		from : 25
-	  		to : *
-	  	}
-	  	other : {
-	  		from : 1000
-	  		to : 10001
-	  	}
-  }
-}
-```
-
 ###### Example with additional info
-The additional info could be anything that can be used for localization purposes using other tools or functions.
+The additional info could be anything that can be used 
+for localization purposes using other tools or functions.
+
 
 ```hjson
-{
-  intervals : {
-  	# These intervals are used in translation functions
-  	# In order to pluralize strings.
-  	few : {
-  		from : 1
-  		to : 25
-  	}
-  	many : {
-  		from : 25
-  		to : *
-  	}
-  	other : {
-  		from : 1000
-  		to : 10001
-  	}
-  }
   
   # Information obtained from http://www.localeplanet.com
   country: US

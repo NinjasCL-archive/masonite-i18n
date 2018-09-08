@@ -1,15 +1,15 @@
 # coding: utf-8
 
-from cleo import Command
+from .BaseCommand import BaseCommand
 from lang.helpers import filesystem
 from fs.copy import copy_file
 
 
-class InstallCommand(Command):
+class InstallCommand(BaseCommand):
     """
     Installs the i18n basic configuration and resources
 
-    install:lang
+    lang:install
         {--m|mock : Mocks the filesystem for testing}
     """
 
@@ -20,11 +20,11 @@ class InstallCommand(Command):
         self.mock = True
         self.quiet = True
 
-    def handle(self):
-        self.trigger(self.option('mock'), self.option('verbose'))
-
-    def mock_handle(self):
-        return self.trigger(mock=True)
+    # def handle(self):
+    #     self.trigger(self.option('mock'), self.option('verbose'))
+    #
+    # def handle_mock(self):
+    #     return self.trigger(mock=True)
 
     def trigger(self, mock=False, quiet=True):
 
@@ -93,7 +93,7 @@ class InstallCommand(Command):
         else:
             fs_config = self.fs_app.opendir(path)
 
-        filename = 'locale.py'
+        filename = 'language.py'
 
         if not fs_config.isfile(filename):
 
@@ -104,8 +104,8 @@ class InstallCommand(Command):
                 dst_path=filename
             )
 
-            self.quiet or self.info('Installed /config/locale.py')
+            self.quiet or self.info('Installed /config/language.py')
         else:
-            self.quiet or self.info('/config/locale.py already exists')
+            self.quiet or self.info('/config/language.py already exists')
 
         fs_config.close()

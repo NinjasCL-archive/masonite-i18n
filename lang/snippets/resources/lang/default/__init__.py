@@ -1,6 +1,6 @@
 # coding: utf-8
 
-''' Locale Configuration File
+""" Language Locale Configuration File
 
 This file stores the data used in the masonite-i18n package.
 You can optionally add additional data if needed.
@@ -16,33 +16,39 @@ Attributes:
 
     title (string, required): Used for descriptions in logs or other places
 
+    intervals = {
+        'few' : (dict, required, default=1,25): Stores the 'few'
+                interval used in plural translation function.
+
+        'many' : (dict, required, default=25,*): Stores the 'many'
+                interval used in plural translation function.
+    }
+
     ## Optional
 
     enabled (bool, optional, default=True): Tells if the language is
             available for use.
 
-    intervals = {
-        'few' : (string, optional, default=1,25): Stores the 'few'
-                interval used in _n() translation function.
-
-        'many' : (string, optional, default=25,*): Stores the 'many'
-                interval used in _n() translation function.
-
-        'other' : (string, optional, default=*): Stores the 'other'
-                interval used in _n() translation function.
-    }
-'''
+"""
 
 # Required
 name = 'default'
 title = 'Default'
 
-# Optional
-enabled = True
+# These intervals are used in translation functions
+# In order to pluralize strings.
+# Only few and many are required.
 intervals = {
-    'few': '1,25',
-    'many': '25,*',
-    'other': '*'
+    'few': {
+        'from': 1,
+        'to': 25
+    },
+    'many': {
+        'from': 25,
+        'to': '*'
+    }
 }
 
-# Custom
+# Optional
+enabled = True
+

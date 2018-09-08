@@ -10,14 +10,10 @@ class NewCommand(Command):
     """
     Creates a new language with optional locale data
 
-    new:lang
+    lang:new
         {--m|mock : Mocks the filesystem for testing}
-        {--l|locale : Locale identifier from localeplanet.com}
     """
 
-    def handle(self):
-        mock = self.option('mock')
-        locale = self.option('locale')
-
-        print(mock)
-        print(locale)
+    # def handle(self):
+    #     mock = self.option('mock')
+    #     print(mock)

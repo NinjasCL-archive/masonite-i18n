@@ -9,14 +9,14 @@ class TestInstallCommand:
 
     def setup_method(self):
 
-        self.locale = '/config/locale.py'
+        self.locale = '/config/language.py'
         self.lang = '/resources/lang/default/__init__.py'
 
     @staticmethod
     def run():
 
         install = InstallCommand()
-        return install.mock_handle()
+        return install.handle_mock()
 
     def test_that_locale_file_was_installed(self):
 
@@ -62,4 +62,4 @@ class TestInstallCommand:
 
         expect(output).to.match('Mock mode activated')
         expect(output).to.match('Installed /resources/lang/default')
-        expect(output).to.match('Installed /config/locale.py')
+        expect(output).to.match('Installed /config/language.py')
