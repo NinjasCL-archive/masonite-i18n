@@ -10,12 +10,12 @@ fs = "*"
 scandir = "*"
 
 [dev-packages]
-the = "*"
 "flake8" = "*"
 "flake8-import-order" = "*"
-pytest = "*"
-black = "*"
 "flake8-bugbear" = "*"
+pytest = "*"
+the = "*"
+black = "*"
 
 [requires]
 python_version = "3.7"
