@@ -17,12 +17,6 @@ class LangCommand(Command):
             + "<info> if you wish to change the default language.</info>"
         )
 
-        self.line(
-            "<info>Be sure to configure</info>"
-            + "<comment> /config/middleware.py </comment>"
-            + "<info>too and add the middleware for language detection.</info>"
-        )
-
         self.line("")
         self.line(
             "<info>Type</info> <comment>craft list lang</comment>"
