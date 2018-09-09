@@ -19,6 +19,7 @@ class BaseCommand(Command):
 
         if self.mock:
             self.quiet or self.info("Mock mode activated. Using memory filesystem.")
+            fs_app.close()
             fs_app = filesystem.load.mock()
 
         self.fs_app = fs_app
