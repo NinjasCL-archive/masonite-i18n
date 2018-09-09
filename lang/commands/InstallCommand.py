@@ -1,7 +1,5 @@
 # coding: utf-8
 
-from fs.copy import copy_file
-
 from lang import helpers
 from .BaseCommand import BaseCommand
 
@@ -29,15 +27,9 @@ class InstallCommand(BaseCommand):
 
         filename = "language.py"
 
-        if not fs_config.isfile(filename):
+        path = "/snippets/configs/" + filename
 
-            copy_file(
-                src_fs=self.fs_pkg,
-                src_path="/snippets/configs/" + filename,
-                dst_fs=fs_config,
-                dst_path=filename,
-            )
-
+        if self.copy_file_from_package_to_fs(filename, path, fs_config):
             self.quiet or self.info("Installed /config/language.py")
         else:
             self.quiet or self.info("/config/language.py already exists")

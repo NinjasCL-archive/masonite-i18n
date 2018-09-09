@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from cleo import Command
+from fs.copy import copy_file
 
 from lang.helpers import create_lang_dir, filesystem
 
@@ -49,6 +50,14 @@ class BaseCommand(Command):
 
     def create_language(self, name, title):
         create_lang_dir(self, name=name, title=title)
+
+    def copy_file_from_package_to_fs(self, filename, path, fs):
+        if not fs.isfile(filename):
+
+            copy_file(src_fs=self.fs_pkg, src_path=path, dst_fs=fs, dst_path=filename)
+
+            return True
+        return False
 
     def trigger(self):
         raise NotImplementedError()
