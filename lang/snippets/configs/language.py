@@ -13,7 +13,7 @@
 |
 """
 
-LOCALE = 'default'
+LOCALE = "default"
 
 """
 |--------------------------------------------------------------------------
@@ -26,4 +26,4 @@ LOCALE = 'default'
 |
 """
 
-LOCALE_FALLBACK = 'default'
+LOCALE_FALLBACK = "default"

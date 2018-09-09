@@ -18,7 +18,7 @@ class BaseCommand(Command):
         fs_app = filesystem.load.os()
 
         if self.mock:
-            self.quiet or self.info('Mock mode activated. Using memory filesystem.')
+            self.quiet or self.info("Mock mode activated. Using memory filesystem.")
             fs_app = filesystem.load.mock()
 
         self.fs_app = fs_app
@@ -35,8 +35,8 @@ class BaseCommand(Command):
         self.fs_app.close()
 
     def handle(self):
-        self.mock = self.option('mock')
-        self.quiet = self.option('verbose')
+        self.mock = self.option("mock")
+        self.quiet = self.option("verbose")
 
         return self.init()
 

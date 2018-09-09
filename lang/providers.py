@@ -15,10 +15,10 @@ class LangProvider(ServiceProvider):
 
     def register(self):
 
-        self.app.bind('LangInstallCommand', InstallCommand())
-        self.app.bind('LangNewCommand', NewCommand())
-        self.app.bind('LangAddCommand', AddCommand())
-        self.app.bind('LangCommand', LangCommand())
+        self.app.bind("LangInstallCommand", InstallCommand())
+        self.app.bind("LangNewCommand", NewCommand())
+        self.app.bind("LangAddCommand", AddCommand())
+        self.app.bind("LangCommand", LangCommand())
 
     def boot(self):
         pass

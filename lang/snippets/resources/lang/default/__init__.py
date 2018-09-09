@@ -32,22 +32,13 @@ Attributes:
 """
 
 # Required
-name = '{name}'
-title = '{title}'
+name = "{name}"
+title = "{title}"
 
 # These intervals are used in translation functions
 # In order to pluralize strings.
 # Only few and many are required.
-intervals = {{
-    'few': {{
-        'from': 1,
-        'to': 25
-    }},
-    'many': {{
-        'from': 25,
-        'to': '*'
-    }}
-}}
+intervals = {{"few": {{"from": 1, "to": 25}}, "many": {{"from": 25, "to": "*"}}}}
 
 # Optional
 enabled = True

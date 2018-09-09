@@ -12,17 +12,18 @@ class NewCommand(BaseCommand):
         {title? : Title of the new language. Defaults to name}
         {--m|mock : Mocks the filesystem for testing}
     """
+
     name = None
     title = None
 
     def get_name_and_title(self):
 
         if self.mock:
-            name = 'en'
-            title = 'English'
+            name = "en"
+            title = "English"
         else:
-            name = self.argument('name')
-            title = self.argument('title')
+            name = self.argument("name")
+            title = self.argument("title")
 
         if not title:
             title = name

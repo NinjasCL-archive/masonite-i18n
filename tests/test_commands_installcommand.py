@@ -6,11 +6,10 @@ from lang.commands.InstallCommand import InstallCommand
 
 
 class TestInstallCommand:
-
     def setup_method(self):
 
-        self.locale = '/config/language.py'
-        self.lang = '/resources/lang/default/__init__.py'
+        self.locale = "/config/language.py"
+        self.lang = "/resources/lang/default/__init__.py"
 
     @staticmethod
     def run():
@@ -47,19 +46,16 @@ class TestInstallCommand:
         application = Application()
         application.add(InstallCommand())
 
-        command = application.find('lang:install')
+        command = application.find("lang:install")
         tester = CommandTester(command)
 
-        result = tester.execute([
-            ('command', command.get_name()),
-            ('--mock')
-        ])
+        result = tester.execute([("command", command.get_name()), ("--mock")])
 
         expect(result).to.be.an(int)
         expect(result).to.be(0)
 
         output = tester.get_display()
 
-        expect(output).to.match('Mock mode activated')
-        expect(output).to.match('Installed /resources/lang/default')
-        expect(output).to.match('Installed /config/language.py')
+        expect(output).to.match("Mock mode activated")
+        expect(output).to.match("Installed /resources/lang/default")
+        expect(output).to.match("Installed /config/language.py")

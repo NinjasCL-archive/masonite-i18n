@@ -6,7 +6,7 @@ from lang import package_directory
 from lang.helpers.filesystem import openers, paths
 
 
-def os(path='.'):
+def os(path="."):
     # We will use the current dir in the operating system fs as default value
     return open_fs(openers.OPERATING_SYSTEM + path)
 
