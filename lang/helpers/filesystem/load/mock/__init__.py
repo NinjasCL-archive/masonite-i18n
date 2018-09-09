@@ -5,7 +5,7 @@ from fs.copy import copy_fs, copy_structure
 from lang.helpers.filesystem import load
 
 # See
-# https://docs.pyfilesystem.org/en/latest/reference/copy.html?highlight=copy_structure#fs.copy.copy_fs
+# https://docs.pyfilesystem.org/en/latest/reference/copy.html?highlight=copy_structure#fs.copy.copy_fs # noqa, flake8 issue
 
 
 def root(walker=None):
