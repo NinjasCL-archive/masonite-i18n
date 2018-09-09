@@ -5,8 +5,8 @@ from masonite.provider import ServiceProvider
 
 from lang.commands.AddCommand import AddCommand
 from lang.commands.InstallCommand import InstallCommand
-from lang.commands.NewCommand import NewCommand
 from lang.commands.LangCommand import LangCommand
+from lang.commands.NewCommand import NewCommand
 
 
 class LangProvider(ServiceProvider):

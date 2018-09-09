@@ -26,6 +26,14 @@ class BaseCommand(Command):
 
         return self.trigger()
 
+    def end(self):
+        self.fs_pkg.close()
+        return self.fs_app
+
+    def end_all(self):
+        self.end()
+        self.fs_app.close()
+
     def handle(self):
         self.mock = self.option('mock')
         self.quiet = self.option('verbose')

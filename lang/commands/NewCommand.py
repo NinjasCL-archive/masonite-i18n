@@ -34,4 +34,4 @@ class NewCommand(BaseCommand):
         self.get_name_and_title()
         self.create_language(self.name, self.title)
 
-        return self.fs_app
+        return self.end()

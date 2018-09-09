@@ -33,3 +33,12 @@ def create_lang_dir(self, name='default', title='Default'):
     fs_lang.close()
 
     return status
+
+
+def open_or_make_dir(fs, path):
+    if not fs.exists(path):
+        directory = fs.makedirs(path)
+    else:
+        directory = fs.opendir(path)
+
+    return directory

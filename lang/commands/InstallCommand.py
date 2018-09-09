@@ -2,6 +2,7 @@
 
 from fs.copy import copy_file
 
+from lang import helpers
 from .BaseCommand import BaseCommand
 
 
@@ -18,18 +19,13 @@ class InstallCommand(BaseCommand):
         self.create_language('default', title='Default')
         self.create_config_resources()
 
-        self.fs_pkg.close()
-
-        return self.fs_app
+        return self.end()
 
     def create_config_resources(self):
 
         path = '/config'
 
-        if not self.fs_app.exists(path):
-            fs_config = self.fs_app.makedirs(path)
-        else:
-            fs_config = self.fs_app.opendir(path)
+        fs_config = helpers.open_or_make_dir(self.fs_app, path)
 
         filename = 'language.py'
 
