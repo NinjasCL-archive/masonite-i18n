@@ -39,13 +39,20 @@ class TestLanguageParser:
         expect(item).to.be.a(LanguageParser.Item)
         expect(item).to.be.NOT.empty
 
-        expect(item.needle).to.eq(self.tag_simple)
-        expect(item.text).to.match(text)
+        assert item.needle == self.tag_simple
+
+        # expect(item.text).to.match(text) have problems with parenthesis inside text
+        assert item.text == text
 
         return item
 
     def test_that_single_char_text_works(self):
         text = "H"
+        item = self.simple_text_test(self.simple_text_single_quote(text), text)
+        expect(item.quotes).to.match("'")
+
+    def test_that_weird_char_text_works(self):
+        text = '()()(sd)()"""'
         item = self.simple_text_test(self.simple_text_single_quote(text), text)
         expect(item.quotes).to.match("'")
 
