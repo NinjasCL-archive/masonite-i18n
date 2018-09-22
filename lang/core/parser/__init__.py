@@ -71,17 +71,17 @@ class LanguageParser:
 
         return results
 
-    # TODO: Implement parse function
     @staticmethod
     def parse(fs, filename):
 
         if not fs.exists(filename):
             raise FileNotFoundError(filename)
 
-        path = ""
+        path = fs.desc(filename)
+
         content = fs.gettext(filename)
         items = LanguageParser.get_function_calls(content, LanguageParser.kTAG_SIMPLE)
 
-        result = File(items, filename, path)
+        result = File(filename, path, items)
 
         return result

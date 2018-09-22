@@ -25,3 +25,7 @@ def root():
 
 def package():
     return os(package_directory)
+
+
+def tests():
+    return os(package_directory + '/../tests')

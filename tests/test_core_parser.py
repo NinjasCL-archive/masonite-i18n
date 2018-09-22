@@ -1,6 +1,8 @@
 # coding: utf-8
 from the import expect
-
+from lang.helpers.filesystem import load
+from lang.helpers import open_or_make_dir
+from lang import package_directory
 from lang.core.parser import LanguageParser
 from lang.core.parser.file import File
 from lang.core.parser.item import Item
@@ -238,9 +240,71 @@ class TestLanguageParser:
 
     def test_that_hash_works(self):
         text = '__("Hello")'
-        shasum256 = "185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969"
+        sha256 = "185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969"
 
         result = LanguageParser.get_function_calls(text, self.tag_simple)
         item = result[0]
 
-        expect(item.hash()) == shasum256
+        expect(item.hash()) == sha256
+
+    def test_that_html_file_parser_works(self):
+        # For this to work ensure that you are running tests in the root directory of the project
+        fs_test = load.tests()
+        directory = open_or_make_dir(fs_test, "parser")
+        filename = "html_file.html"
+        textdomain = "tests--parser--html_file-html"
+
+        item = LanguageParser.parse(directory, filename)
+
+        fs_test.close()
+        directory.close()
+
+        expect(item).to.be.a(File)
+        expect(item.filename) == filename
+        expect(item.textdomain()) == textdomain
+        expect(item.file()) == textdomain + "." + File.kEXTENSION
+
+        expect(item.items).to.be.a(list)
+        expect(len(item.items)).to.be.eq(2)
+
+    def test_that_txt_file_parser_works(self):
+        fs_test = load.tests()
+        directory = open_or_make_dir(fs_test, "parser")
+        filename = "txt_file.txt"
+        textdomain = "tests--parser--txt_file-txt"
+
+        item = LanguageParser.parse(directory, filename)
+
+        fs_test.close()
+        directory.close()
+
+        expect(item).to.be.a(File)
+        expect(item.filename) == filename
+        expect(item.textdomain()) == textdomain
+        expect(item.file()) == textdomain + "." + File.kEXTENSION
+
+        expect(item.items).to.be.a(list)
+        expect(len(item.items)).to.be.eq(1)
+
+    def test_that_python_file_parser_works(self):
+        fs_test = load.tests()
+        directory = open_or_make_dir(fs_test, "parser")
+        filename = "python_file.py.code"
+        textdomain = "tests--parser--python_file-py-code"
+
+        item = LanguageParser.parse(directory, filename)
+
+        fs_test.close()
+        directory.close()
+
+        expect(item).to.be.a(File)
+        expect(item.filename) == filename
+        expect(item.textdomain()) == textdomain
+        expect(item.file()) == textdomain + "." + File.kEXTENSION
+
+        expect(item.items).to.be.a(list)
+        expect(len(item.items)).to.be.eq(1)
+
+
+
+
