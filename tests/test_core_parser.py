@@ -212,3 +212,26 @@ class TestLanguageParser:
         expect(params1.content).to.be.a(str)
         expect(params1.content).to.match("Comment")
         expect(params1.type).to.match("text")
+
+    def test_that_wrong_text_does_not_crash(self):
+        text = """
+                This is wrongly used {{__('Wrong'. 'Parsed' . 'Too', comment="My Comment", note='''
+                My Note''')}}.
+            """
+
+        result = LanguageParser.get_function_calls(text, self.tag_simple)
+
+        item = result[0]
+        params = item.params
+
+        expect(len(params)).to.be.eq(3)
+        expect(item.text) == "Wrong"
+
+    def test_that_hash_works(self):
+        text = '__("Hello")'
+        shasum256 = "185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969"
+
+        result = LanguageParser.get_function_calls(text, self.tag_simple)
+        item = result[0]
+
+        expect(item.hash()) == shasum256

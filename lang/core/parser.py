@@ -3,6 +3,8 @@ Parses a file to locate all function calls containing
 translatable text and their optional params.
 """
 
+import hashlib
+
 
 class LanguageParser:
 
@@ -21,6 +23,9 @@ class LanguageParser:
             self.type = type_
             self.content = content
 
+        def __repr__(self):
+            return self.content
+
     class Item:
         quotes = None
         begin = None
@@ -38,6 +43,12 @@ class LanguageParser:
             self.text = text
             self.params = params
             self.needle = needle
+
+        def __repr__(self):
+            return self.text
+
+        def hash(self):
+            return hashlib.sha256(self.text.encode("utf-8")).hexdigest()
 
     @staticmethod
     def get_text_between_string_tags(haystack, needle=None):
