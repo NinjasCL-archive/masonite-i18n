@@ -9,6 +9,36 @@ class LanguageParser:
     kTAG_SIMPLE = "__("
     kTAG_PLURAL = "_n("
 
+    class Param:
+        sort = None
+        item = None
+        type = None
+        content = None
+
+        def __init__(self, sort=None, item=None, type_=None, content=None):
+            self.sort = sort
+            self.item = item
+            self.type = type_
+            self.content = content
+
+    class Item:
+        quotes = None
+        begin = None
+        end = None
+        text = None
+        params = None
+        needle = None
+
+        def __init__(
+            self, quotes=None, begin=None, end=None, text=None, params=None, needle=None
+        ):
+            self.quotes = quotes
+            self.begin = begin
+            self.end = end
+            self.text = text
+            self.params = params
+            self.needle = needle
+
     @staticmethod
     def get_text_between_string_tags(haystack, needle=None):
 
@@ -40,13 +70,13 @@ class LanguageParser:
     @staticmethod
     def get_function_calls(haystack, needle):
         """
-        This function will return an array of dictionaries
+        This function will return an array of LanguageParser.Item
         that holds the positions and contents of each translation function found in the haystack
         :param haystack: a string with the data
         :param needle: what needs to be found
-        :return: array of dict
+        :return: array of LanguageParser.Item
         """
-        indexes = []
+        results = []
         index = haystack.find(needle, 0)
 
         # Maybe regex should be used instead to match __( function calls.
@@ -66,6 +96,7 @@ class LanguageParser:
 
             items = []
             for sort, item in enumerate(params):
+
                 item = item.strip()
 
                 if not item == "":
@@ -92,29 +123,25 @@ class LanguageParser:
                         item_content
                     )[0]
 
-                    items.append(
-                        {
-                            "sort": sort - 1,
-                            "item": item,
-                            "type": item_type,
-                            "content": item_content,
-                        }
+                    _param = LanguageParser.Param(
+                        sort=sort - 1, item=item, type_=item_type, content=item_content
                     )
 
-            indexes.append(
-                {
-                    "quotes": quotes,
-                    "begin": begin_pos,
-                    "end": end_pos,
-                    "text": text,
-                    "params": items,
-                    "needle": needle,
-                }
+                    items.append(_param)
+
+            _item = LanguageParser.Item(
+                quotes=quotes,
+                begin=begin_pos,
+                end=end_pos,
+                text=text,
+                params=items,
+                needle=needle,
             )
 
+            results.append(_item)
             index = haystack.find(needle, index + 1)
 
-        return indexes
+        return results
 
     def parse(self, fs, filename):
 

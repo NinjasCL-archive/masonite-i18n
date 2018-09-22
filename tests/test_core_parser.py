@@ -36,33 +36,38 @@ class TestLanguageParser:
 
         item = result[0]
 
-        expect(item).to.be.a(dict)
+        expect(item).to.be.a(LanguageParser.Item)
         expect(item).to.be.NOT.empty
 
-        expect(item["needle"]).to.eq(self.tag_simple)
-        expect(item["text"]).to.match(text)
+        expect(item.needle).to.eq(self.tag_simple)
+        expect(item.text).to.match(text)
 
         return item
 
+    def test_that_single_char_text_works(self):
+        text = "H"
+        item = self.simple_text_test(self.simple_text_single_quote(text), text)
+        expect(item.quotes).to.match("'")
+
     def test_that_simple_text_works(self):
         item = self.simple_text_test(self.simple_text_single_quote(), self.sample_text)
-        expect(item["quotes"]).to.match("'")
+        expect(item.quotes).to.match("'")
 
     def test_that_simple_text_double_quote_works(self):
         item = self.simple_text_test(self.simple_text_double_quote(), self.sample_text)
-        expect(item["quotes"]).to.match('"')
+        expect(item.quotes).to.match('"')
 
     def test_that_simple_text_triple_single_quote_works(self):
         item = self.simple_text_test(
             self.simple_text_triple_single_quote(), self.sample_text
         )
-        expect(item["quotes"]).to.match("'''")
+        expect(item.quotes).to.match("'''")
 
     def test_that_simple_text_triple_double_quote_works(self):
         item = self.simple_text_test(
             self.simple_text_triple_double_quote(), self.sample_text
         )
-        expect(item["quotes"]).to.match('"""')
+        expect(item.quotes).to.match('"""')
 
     def test_that_complex_text_works(self):
         text = """
@@ -79,19 +84,19 @@ class TestLanguageParser:
         item = result[0]
         item2 = result[1]
 
-        expect(item).to.be.a(dict)
+        expect(item).to.be.a(LanguageParser.Item)
         expect(item).to.be.NOT.empty
 
-        expect(item["needle"]).to.eq(self.tag_simple)
-        expect(item["text"]).to.match("Parsed")
-        expect(item["quotes"]).to.match("'")
+        expect(item.needle).to.eq(self.tag_simple)
+        expect(item.text).to.match("Parsed")
+        expect(item.quotes).to.match("'")
 
-        expect(item2).to.be.a(dict)
+        expect(item2).to.be.a(LanguageParser.Item)
         expect(item2).to.be.NOT.empty
 
-        expect(item2["needle"]).to.eq(self.tag_simple)
-        expect(item2["text"]).to.match("Calls")
-        expect(item2["quotes"]).to.match('"')
+        expect(item2.needle).to.eq(self.tag_simple)
+        expect(item2.text).to.match("Calls")
+        expect(item2.quotes).to.match('"')
 
     def test_that_jinja_text_works(self):
         text = """
@@ -108,19 +113,19 @@ class TestLanguageParser:
         item = result[0]
         item2 = result[1]
 
-        expect(item).to.be.a(dict)
+        expect(item).to.be.a(LanguageParser.Item)
         expect(item).to.be.NOT.empty
 
-        expect(item["needle"]).to.eq(self.tag_simple)
-        expect(item["text"]).to.match("Parsed")
-        expect(item["quotes"]).to.match("'")
+        expect(item.needle).to.eq(self.tag_simple)
+        expect(item.text).to.match("Parsed")
+        expect(item.quotes).to.match("'")
 
-        expect(item2).to.be.a(dict)
+        expect(item2).to.be.a(LanguageParser.Item)
         expect(item2).to.be.NOT.empty
 
-        expect(item2["needle"]).to.eq(self.tag_simple)
-        expect(item2["text"]).to.match("Calls")
-        expect(item2["quotes"]).to.match('"')
+        expect(item2.needle).to.eq(self.tag_simple)
+        expect(item2.text).to.match("Calls")
+        expect(item2.quotes).to.match('"')
 
     def test_that_text_with_params_works(self):
         text = """
@@ -138,66 +143,65 @@ class TestLanguageParser:
         item = result[0]
         item2 = result[1]
 
-        expect(item).to.be.a(dict)
+        expect(item).to.be.a(LanguageParser.Item)
         expect(item).to.be.NOT.empty
 
-        expect(item["needle"]).to.eq(self.tag_simple)
-        expect(item["text"]).to.match("Parsed")
-        expect(item["quotes"]).to.match("'")
+        expect(item.needle).to.eq(self.tag_simple)
+        expect(item.text).to.match("Parsed")
+        expect(item.quotes).to.match("'")
 
-        params = item["params"]
+        params = item.params
 
         expect(params).to.be.a(list)
         expect(len(params)).to.be.eq(2)
 
         params1 = params[0]
-        expect(params1).to.be.a(dict)
-        expect(params1["sort"]).to.be.an(int)
-        expect(params1["sort"]).to.be.eq(0)
-        expect(params1["item"]).to.be.a(str)
-        expect(params1["item"].find('comment="My Comment"')).to.be.gt(-1)
-        expect(params1["content"]).to.be.a(str)
-        expect(params1["content"]).to.match("My Comment")
-        expect(params1["type"]).to.match("comment")
+        expect(params1).to.be.a(LanguageParser.Param)
+        expect(params1.sort).to.be.an(int)
+        expect(params1.sort).to.be.eq(0)
+        expect(params1.item).to.be.a(str)
+        expect(params1.item.find('comment="My Comment"')).to.be.gt(-1)
+        expect(params1.content).to.be.a(str)
+        expect(params1.content).to.match("My Comment")
+        expect(params1.type).to.match("comment")
 
         params2 = params[1]
-        expect(params2["sort"]).to.be.an(int)
-        expect(params2["sort"]).to.be.eq(1)
-        expect(params2["item"]).to.be.a(str)
+        expect(params2.sort).to.be.an(int)
+        expect(params2.sort).to.be.eq(1)
+        expect(params2.item).to.be.a(str)
 
         expect(
-            params2["item"].find(
+            params2.item.find(
                 """note='''
                 My Note'''"""
             )
         ).to.be.gt(-1)
 
-        expect(params2["content"]).to.be.a(str)
-        expect(params2["content"]).to.match(
+        expect(params2.content).to.be.a(str)
+        expect(params2.content).to.match(
             """
                 My Note"""
         )
-        expect(params2["type"]).to.match("note")
+        expect(params2.type).to.match("note")
 
-        expect(item2).to.be.a(dict)
+        expect(item2).to.be.a(LanguageParser.Item)
         expect(item2).to.be.NOT.empty
 
-        expect(item2["needle"]).to.eq(self.tag_simple)
-        expect(item2["text"]).to.match("Calls")
-        expect(item2["quotes"]).to.match('"')
+        expect(item2.needle).to.eq(self.tag_simple)
+        expect(item2.text).to.match("Calls")
+        expect(item2.quotes).to.match('"')
 
-        params = item2["params"]
+        params = item2.params
 
         expect(params).to.be.a(list)
         expect(len(params)).to.be.eq(1)
 
         params1 = params[0]
-        expect(params1).to.be.a(dict)
-        expect(params1["sort"]).to.be.an(int)
-        expect(params1["sort"]).to.be.eq(0)
-        expect(params1["item"]).to.be.a(str)
-        expect(params1["item"].find('"Comment"')).to.be.gt(-1)
-        expect(params1["content"]).to.be.a(str)
-        expect(params1["content"]).to.match("Comment")
-        expect(params1["type"]).to.match("text")
-
+        expect(params1).to.be.a(LanguageParser.Param)
+        expect(params1.sort).to.be.an(int)
+        expect(params1.sort).to.be.eq(0)
+        expect(params1.sort).to.be.an(int)
+        expect(params1.item.find('"Comment"')).to.be.gt(-1)
+        expect(params1.content).to.be.a(str)
+        expect(params1.content).to.match("Comment")
+        expect(params1.type).to.match("text")
