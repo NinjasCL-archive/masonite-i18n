@@ -2,6 +2,9 @@
 from the import expect
 
 from lang.core.parser import LanguageParser
+from lang.core.parser.file import File
+from lang.core.parser.item import Item
+from lang.core.parser.param import Param
 
 
 class TestLanguageParser:
@@ -36,7 +39,7 @@ class TestLanguageParser:
 
         item = result[0]
 
-        expect(item).to.be.a(LanguageParser.Item)
+        expect(item).to.be.a(Item)
         expect(item).to.be.NOT.empty
 
         assert item.needle == self.tag_simple
@@ -97,14 +100,14 @@ class TestLanguageParser:
         item = result[0]
         item2 = result[1]
 
-        expect(item).to.be.a(LanguageParser.Item)
+        expect(item).to.be.a(Item)
         expect(item).to.be.NOT.empty
 
         expect(item.needle).to.eq(self.tag_simple)
         expect(item.text).to.match("Parsed")
         expect(item.quotes).to.match("'")
 
-        expect(item2).to.be.a(LanguageParser.Item)
+        expect(item2).to.be.a(Item)
         expect(item2).to.be.NOT.empty
 
         expect(item2.needle).to.eq(self.tag_simple)
@@ -126,14 +129,14 @@ class TestLanguageParser:
         item = result[0]
         item2 = result[1]
 
-        expect(item).to.be.a(LanguageParser.Item)
+        expect(item).to.be.a(Item)
         expect(item).to.be.NOT.empty
 
         expect(item.needle).to.eq(self.tag_simple)
         expect(item.text).to.match("Parsed")
         expect(item.quotes).to.match("'")
 
-        expect(item2).to.be.a(LanguageParser.Item)
+        expect(item2).to.be.a(Item)
         expect(item2).to.be.NOT.empty
 
         expect(item2.needle).to.eq(self.tag_simple)
@@ -156,7 +159,7 @@ class TestLanguageParser:
         item = result[0]
         item2 = result[1]
 
-        expect(item).to.be.a(LanguageParser.Item)
+        expect(item).to.be.a(Item)
         expect(item).to.be.NOT.empty
 
         expect(item.needle).to.eq(self.tag_simple)
@@ -169,7 +172,7 @@ class TestLanguageParser:
         expect(len(params)).to.be.eq(2)
 
         params1 = params[0]
-        expect(params1).to.be.a(LanguageParser.Param)
+        expect(params1).to.be.a(Param)
         expect(params1.sort).to.be.an(int)
         expect(params1.sort).to.be.eq(0)
         expect(params1.item).to.be.a(str)
@@ -197,7 +200,7 @@ class TestLanguageParser:
         )
         expect(params2.type).to.match("note")
 
-        expect(item2).to.be.a(LanguageParser.Item)
+        expect(item2).to.be.a(Item)
         expect(item2).to.be.NOT.empty
 
         expect(item2.needle).to.eq(self.tag_simple)
@@ -210,7 +213,7 @@ class TestLanguageParser:
         expect(len(params)).to.be.eq(1)
 
         params1 = params[0]
-        expect(params1).to.be.a(LanguageParser.Param)
+        expect(params1).to.be.a(Param)
         expect(params1.sort).to.be.an(int)
         expect(params1.sort).to.be.eq(0)
         expect(params1.sort).to.be.an(int)
