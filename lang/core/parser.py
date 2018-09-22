@@ -11,17 +11,63 @@ class LanguageParser:
     kTAG_SIMPLE = "__("
     kTAG_PLURAL = "_n("
 
+    class File:
+        items = None
+        filename = None
+        path = None
+        extension = "hjson"
+
+        def __init__(self, items=None, filename=None, path=None):
+            self.items = items
+            self.filename = filename
+            self.path = path
+
+        def __repr__(self):
+            return self.textdomain()
+
+        def textdomain(self):
+            path = self.path.replace("/", "--")
+            path = path.replace("\\", "--")
+            filename = self.filename.replace(".", "-")
+            return path + filename
+
+        def file(self):
+            return self.textdomain() + "." + self.extension
+
     class Param:
         sort = None
         item = None
         type = None
         content = None
 
-        def __init__(self, sort=None, item=None, type_=None, content=None):
+        def __init__(self, sort=None, item=None):
             self.sort = sort
             self.item = item
-            self.type = type_
-            self.content = content
+
+            item_type = "text"
+            should_split = True
+
+            not_found = -1
+
+            if item.find("comment") != not_found:
+                item_type = "comment"
+            elif item.find("note") != not_found:
+                item_type = "note"
+            elif item.find("textdomain") != not_found:
+                item_type = "textdomain"
+            else:
+                should_split = False
+
+            item_content = item
+
+            if should_split:
+                parts = item.split("=")
+                item_content = parts[1]
+
+            item_content = LanguageParser.get_text_between_string_tags(item_content)[0]
+
+            self.type = item_type
+            self.content = item_content
 
         def __repr__(self):
             return self.content
@@ -112,31 +158,7 @@ class LanguageParser:
 
                 if not item == "":
 
-                    item_type = "text"
-                    should_split = True
-
-                    if item.find("comment") > -1:
-                        item_type = "comment"
-                    elif item.find("note") > -1:
-                        item_type = "note"
-                    elif item.find("textdomain") > -1:
-                        item_type = "textdomain"
-                    else:
-                        should_split = False
-
-                    item_content = item
-
-                    if should_split:
-                        parts = item.split("=")
-                        item_content = parts[1]
-
-                    item_content = LanguageParser.get_text_between_string_tags(
-                        item_content
-                    )[0]
-
-                    _param = LanguageParser.Param(
-                        sort=sort - 1, item=item, type_=item_type, content=item_content
-                    )
+                    _param = LanguageParser.Param(sort=sort - 1, item=item)
 
                     items.append(_param)
 
@@ -155,15 +177,16 @@ class LanguageParser:
         return results
 
     # TODO: Implement parse function
-    def parse(self, fs, filename):
+    @staticmethod
+    def parse(fs, filename):
 
         if not fs.exists(filename):
             raise FileNotFoundError(filename)
 
+        path = ""
         content = fs.gettext(filename)
-        get_simple = LanguageParser.get_function_calls(
-            content, LanguageParser.kTAG_SIMPLE
-        )
-        translate_plural = LanguageParser.get_function_calls(
-            content, LanguageParser.kTAG_PLURAL
-        )
+        items = LanguageParser.get_function_calls(content, LanguageParser.kTAG_SIMPLE)
+
+        file = LanguageParser.File(items, filename, path)
+
+        return file

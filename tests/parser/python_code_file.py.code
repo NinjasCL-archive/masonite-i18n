@@ -1,0 +1,2 @@
+
+print(__("This text should be parsed"))
