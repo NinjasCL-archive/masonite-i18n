@@ -93,7 +93,7 @@ class LanguageParser:
         # Maybe regex should be used instead to match __( function calls.
         # But flexibility and readability are more important.
 
-        while index >= 0:
+        while index >= 0 and haystack != "":
 
             haystack = haystack[index:]
 

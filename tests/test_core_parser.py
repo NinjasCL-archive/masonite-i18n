@@ -46,6 +46,12 @@ class TestLanguageParser:
 
         return item
 
+    def test_that_empty_returns_zero_items(self):
+        text = ""
+        result = LanguageParser.get_function_calls(text, self.tag_simple)
+        expect(result).to.be.a(list)
+        expect(len(result)).to.be.eq(0)
+
     def test_that_single_char_text_works(self):
         text = "H"
         item = self.simple_text_test(self.simple_text_single_quote(text), text)
