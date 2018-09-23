@@ -1,4 +1,6 @@
 # coding: utf-8
+"""Tests for the lang.core.parser package."""
+
 from the import expect
 
 from lang.core.parser import LanguageParser
@@ -306,3 +308,27 @@ class TestLanguageParser:
 
         expect(item.items).to.be.a(list)
         expect(len(item.items)).to.be.eq(1)
+
+    def test_that_emoji_file_parser_works(self):
+        """test 😀_file.emoji"""
+        fs_test = load.tests()
+        directory = open_or_make_dir(fs_test, "parser")
+        filename = "😀_file.emoji"
+        textdomain = "tests--parser--😀_file-emoji"
+
+        item = LanguageParser.parse(directory, filename)
+
+        fs_test.close()
+        directory.close()
+
+        expect(item).to.be.a(File)
+        expect(item.filename) == filename
+        expect(item.textdomain()) == textdomain
+        expect(item.file()) == textdomain + "." + File.kEXTENSION
+
+        expect(item.items).to.be.a(list)
+        expect(len(item.items)).to.be.eq(1)
+
+
+        translation = item.items[0]
+        expect(translation.text) == "😀"
