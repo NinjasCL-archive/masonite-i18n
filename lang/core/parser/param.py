@@ -1,6 +1,5 @@
-"""
-Holds the params after the string to translate
-"""
+# coding: utf-8
+"""Holds the params after the string to translate."""
 
 from lang.core.parser.helpers import get_text_between_string_tags
 

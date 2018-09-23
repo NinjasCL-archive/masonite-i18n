@@ -32,7 +32,7 @@ class TestLanguageParser:
 
     def simple_text_test(self, translation, text):
 
-        result = LanguageParser.get_function_calls(translation, self.tag_simple)
+        result = LanguageParser.get_translation_function_calls(translation, self.tag_simple)
 
         expect(result).to.be.a(list)
         expect(result).to.be.NOT.empty
@@ -53,7 +53,7 @@ class TestLanguageParser:
 
     def test_that_empty_returns_zero_items(self):
         text = ""
-        result = LanguageParser.get_function_calls(text, self.tag_simple)
+        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
         expect(result).to.be.a(list)
         expect(len(result)).to.be.eq(0)
 
@@ -92,7 +92,7 @@ class TestLanguageParser:
             Hello this should be __('Parsed') successfully.
             Two function __("Calls") with different quotes.
         """
-        result = LanguageParser.get_function_calls(text, self.tag_simple)
+        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
 
         expect(result).to.be.a(list)
         expect(result).to.be.NOT.empty
@@ -121,7 +121,7 @@ class TestLanguageParser:
                 Hello this should be {{__('Parsed')}} successfully.
                 Two function {{__("Calls")}} with different quotes.
             """
-        result = LanguageParser.get_function_calls(text, self.tag_simple)
+        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
 
         expect(result).to.be.a(list)
         expect(result).to.be.NOT.empty
@@ -151,7 +151,7 @@ class TestLanguageParser:
                 My Note''')}} successfully.
                 Two function {{__("Calls", "Comment")}} with different quotes.
             """
-        result = LanguageParser.get_function_calls(text, self.tag_simple)
+        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
 
         expect(result).to.be.a(list)
         expect(result).to.be.NOT.empty
@@ -231,7 +231,7 @@ class TestLanguageParser:
                 My Note''')}}.
             """
 
-        result = LanguageParser.get_function_calls(text, self.tag_simple)
+        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
 
         item = result[0]
         params = item.params
@@ -243,7 +243,7 @@ class TestLanguageParser:
         text = '__("Hello")'
         sha256 = "185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969"
 
-        result = LanguageParser.get_function_calls(text, self.tag_simple)
+        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
         item = result[0]
 
         expect(item.hash()) == sha256

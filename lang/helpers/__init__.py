@@ -1,4 +1,5 @@
 # coding: utf-8
+"""Provides helper methods used across the package."""
 
 
 def create_lang_dir(self, name="default", title="Default"):

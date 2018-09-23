@@ -1,14 +1,12 @@
 # coding: utf-8
+"""Language Locale Configuration File.
 
-""" Language Locale Configuration File
-
-This file stores the data used in the masonite-i18n package.
+This file stores the data used in translation functions.
 You can optionally add additional data if needed.
 
 Examples: currency symbols, date format, money format
 
 Attributes:
-
     ## Required
 
     name (string, required): Must be url valid. Used in routes and other places
