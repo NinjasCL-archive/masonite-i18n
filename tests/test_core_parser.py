@@ -1,12 +1,12 @@
 # coding: utf-8
 from the import expect
-from lang.helpers.filesystem import load
-from lang.helpers import open_or_make_dir
-from lang import package_directory
+
 from lang.core.parser import LanguageParser
 from lang.core.parser.file import File
 from lang.core.parser.item import Item
 from lang.core.parser.param import Param
+from lang.helpers import open_or_make_dir
+from lang.helpers.filesystem import load
 
 
 class TestLanguageParser:
@@ -226,7 +226,8 @@ class TestLanguageParser:
 
     def test_that_wrong_text_does_not_crash(self):
         text = """
-                This is wrongly used {{__('Wrong'. 'Parsed' . 'Too', comment="My Comment", note='''
+                This is wrongly used {{__('Wrong'. 'Parsed' . 'Too',
+                comment="My Comment", note='''
                 My Note''')}}.
             """
 
@@ -248,7 +249,8 @@ class TestLanguageParser:
         expect(item.hash()) == sha256
 
     def test_that_html_file_parser_works(self):
-        # For this to work ensure that you are running tests in the root directory of the project
+        # For this to work ensure that you are running tests in the
+        # root directory of the project
         fs_test = load.tests()
         directory = open_or_make_dir(fs_test, "parser")
         filename = "html_file.html"
@@ -304,7 +306,3 @@ class TestLanguageParser:
 
         expect(item.items).to.be.a(list)
         expect(len(item.items)).to.be.eq(1)
-
-
-
-

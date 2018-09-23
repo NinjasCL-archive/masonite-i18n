@@ -1,4 +1,5 @@
 # coding: utf-8
+"""A Translation system for Masonite."""
 
 import os
 

@@ -16,6 +16,8 @@ scandir = "*"
 pytest = "*"
 the = "*"
 black = "*"
+isort = "*"
+pydocstyle = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # coding: utf-8
+"""File to provide pypi installation instructions."""
 
 from setuptools import find_packages, setup
 
 from lang import name, version
-
 
 setup(
     name=name,

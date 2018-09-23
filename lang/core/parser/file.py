@@ -11,7 +11,6 @@ class File:
     filename = None
     path = None
 
-
     def __init__(self, filename, path, items=None):
         self.items = items
         self.filename = filename

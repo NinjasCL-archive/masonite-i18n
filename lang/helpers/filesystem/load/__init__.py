@@ -28,4 +28,4 @@ def package():
 
 
 def tests():
-    return os(package_directory + '/../tests')
+    return os(package_directory + "/../tests")
