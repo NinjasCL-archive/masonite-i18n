@@ -9,7 +9,8 @@ translatable text function calls and their optional params.
 from lang.core.parser.param import Param
 from lang.core.parser.item import Item
 from lang.core.parser.file import File
-from lang.core.parser.helpers import get_text_between_string_tags, get_last_parenthesis_position, get_function_params
+from lang.core.parser.helpers import get_text_between_string_tags, \
+    get_last_parenthesis_position
 
 
 class LanguageParser:
@@ -49,12 +50,17 @@ class LanguageParser:
                 content, needle
             )
 
+            begins_with_a_string_literal = (quotes.startswith('"') or quotes.startswith("'"))
+
+            if not begins_with_a_string_literal:
+                index = haystack.find(needle, index + 1)
+                continue
+
             init_pos = end_pos + len(quotes)
             final_pos = get_last_parenthesis_position(content)
-
             params = content[init_pos : final_pos]
 
-            get_function_params(content[:final_pos + 1])
+            #get_function_params(content[:final_pos + 1])
 
             params = params.split(",")
 
@@ -68,6 +74,7 @@ class LanguageParser:
                     _param = Param(sort=sort - 1, item=obj)
                     items.append(_param)
 
+
             _item = Item(
                 quotes=quotes,
                 begin=begin_pos,
@@ -78,6 +85,7 @@ class LanguageParser:
             )
 
             results.append(_item)
+
             index = haystack.find(needle, index + 1)
 
         return results

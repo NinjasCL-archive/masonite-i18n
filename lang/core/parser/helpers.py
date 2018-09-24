@@ -63,35 +63,4 @@ def get_last_parenthesis_position(haystack: str):
     return final_pos
 
 
-def get_function_params(haystack: str):
-
-    print(haystack)
-
-    # params = []
-    # commas_stack = []
-    #
-    # # Find all the strings, commas should be omited if inside them
-    # strings = re.findall(r'"(.*?)"', haystack)
-    # strings.extend(re.findall(r"'(.*?)'", haystack))
-    # strings.extend(re.findall(r"'''(.*?)'''", haystack))
-    # strings.extend(re.findall(r'"""(.*?)"""', haystack))
-    #
-    # print(strings)
-    #
-    # # First search for all the positions where a comma is present
-    # for position, char in enumerate(haystack):
-    #
-    #     if char.strip() == "":
-    #         continue
-    #
-    #     if char == ",":
-    #         content = haystack[position:]
-    #         if content.find('"') ==-1:
-    #             commas_stack.append(position)
-    #
-    # print(commas_stack)
-    # for position in commas_stack:
-    #     content = haystack[position:]
-
-
 
