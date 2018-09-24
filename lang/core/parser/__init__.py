@@ -10,11 +10,12 @@ from lang.core.parser.param import Param
 from lang.core.parser.item import Item
 from lang.core.parser.file import File
 from lang.core.parser.helpers import get_text_between_string_tags, \
-    get_last_parenthesis_position
+    get_last_parenthesis_position, get_trailing_components
 
 
 kTAG_SIMPLE = "__("
 kTAG_PLURAL = "_n("
+
 
 def get_translation_function_calls(haystack: str, needle: str):
     """
@@ -54,7 +55,7 @@ def get_translation_function_calls(haystack: str, needle: str):
         final_pos = get_last_parenthesis_position(content)
         params = content[init_pos : final_pos]
 
-        #get_function_params(content[:final_pos + 1])
+        get_trailing_components(params)
 
         params = params.split(",")
 
@@ -67,7 +68,6 @@ def get_translation_function_calls(haystack: str, needle: str):
                     continue
                 _param = Param(sort=sort - 1, item=obj)
                 items.append(_param)
-
 
         _item = Item(
             quotes=quotes,

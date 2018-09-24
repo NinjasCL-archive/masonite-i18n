@@ -1,7 +1,7 @@
 # coding: utf-8
 """Holds the params after the string to translate."""
 
-from lang.core.parser.helpers import get_text_between_string_tags
+from lang.core.parser.helpers import get_text_between_string_tags, starts_and_ends_with_string_literal
 
 
 class Param:
@@ -37,8 +37,7 @@ class Param:
             except IndexError:
                 pass
 
-        if (item_content.startswith("'") or item_content.startswith('"')) and\
-            (item_content.endswith("'") or item_content.endswith('"')):
+        if starts_and_ends_with_string_literal(item_content):
             item_content = get_text_between_string_tags(item_content)[0]
 
         self.type = item_type
