@@ -18,7 +18,9 @@
            {{ __("This text also should be parsed 1", comment="This comment should exist") }}
         </p>
         <p>
-           {{ __("This text also should be parsed 2", comment="'This comment', '''should''' exist") }}
+           {{ __( '''"
+                    This text also should be parsed 2"
+                ''', comment="'This comment', '''should''' exist") }}
         </p>
         <p>
            {{ __("This text also should be parsed 3 {text}".format(text="'''true''', or false"), comment="This comment, should exist {}"

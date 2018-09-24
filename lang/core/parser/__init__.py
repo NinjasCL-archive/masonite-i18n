@@ -46,11 +46,9 @@ class LanguageParser:
             # First we need the translatable string
             content = haystack[index:]
 
-            text, begin_pos, end_pos, quotes = get_text_between_string_tags(
+            text, begin_pos, end_pos, quotes, begins_with_a_string_literal = get_text_between_string_tags(
                 content, needle
             )
-
-            begins_with_a_string_literal = (quotes.startswith('"') or quotes.startswith("'"))
 
             if not begins_with_a_string_literal:
                 index = haystack.find(needle, index + 1)

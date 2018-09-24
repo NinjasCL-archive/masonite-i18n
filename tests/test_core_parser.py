@@ -274,6 +274,8 @@ class TestLanguageParser:
         item = _file.items[2]
         expect(item).to.be.a(Item)
         expect(item.params).to.be.a(list)
+
+        print(item.text.encode())
         expect(len(item.params)).to.be.eq(1)
 
     def test_that_txt_file_parser_works(self):
