@@ -9,7 +9,7 @@ translatable text function calls and their optional params.
 from lang.core.parser.param import Param
 from lang.core.parser.item import Item
 from lang.core.parser.file import File
-from lang.core.parser.helpers import get_text_between_string_tags
+from lang.core.parser.helpers import get_text_between_string_tags, get_last_parenthesis_position, get_function_params
 
 
 class LanguageParser:
@@ -43,22 +43,28 @@ class LanguageParser:
         while index >= 0:
 
             # First we need the translatable string
-            haystack = haystack[index:]
+            content = haystack[index:]
+
             text, begin_pos, end_pos, quotes = get_text_between_string_tags(
-                haystack, needle
+                content, needle
             )
 
-            # Now we obtain the contents after the translatable string
-            final_pos = haystack.find(")", end_pos)
-            params = haystack[end_pos + len(quotes) : final_pos].split(",")
+            init_pos = end_pos + len(quotes)
+            final_pos = get_last_parenthesis_position(content)
 
-            # Parse the contents to simplify handling later
+            params = content[init_pos : final_pos]
+
+            get_function_params(content[:final_pos + 1])
+
+            params = params.split(",")
+
+            # Parse the param contents to simplify handling later
             items = []
+
             for sort, obj in enumerate(params):
-
-                obj = obj.strip()
-
-                if obj != "":
+                    obj = obj.strip()
+                    if obj == "":
+                        continue
                     _param = Param(sort=sort - 1, item=obj)
                     items.append(_param)
 

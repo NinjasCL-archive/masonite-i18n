@@ -1,7 +1,7 @@
 <html>
 <body>
 
-{{__("This text should be parsed")}}
+{{__("This text should be parsed 0")}}
 
 <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -15,8 +15,20 @@
 <div>
     <div>
         <p>
-           {{__("This text also should be parsed", comment="This comment should exist")}}
+           {{ __("This text also should be parsed 1", comment="This comment should exist") }}
         </p>
+         <p>
+           {{ __(This_is_not_a_string_literal_and_should_not_be_parsed) }}
+        </p>
+        <p>
+           {{ __("This text also should be parsed 2", comment="'This comment', '''should''' exist") }}
+        </p>
+        <p>
+           {{ __("This text also should be parsed 3 {text}".format(text="'''true''', or false"), comment="This comment, should exist {}"
+                .format("do not use them like this. It would mess the comment, section.")
+            }}
+        </p>
+
     </div>
 </div>
 </body>

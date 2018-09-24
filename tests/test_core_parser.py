@@ -258,18 +258,23 @@ class TestLanguageParser:
         filename = "html_file.html"
         textdomain = "tests--parser--html_file-html"
 
-        item = LanguageParser.parse(directory, filename)
+        _file = LanguageParser.parse(directory, filename)
 
         fs_test.close()
         directory.close()
 
-        expect(item).to.be.a(File)
-        expect(item.filename) == filename
-        expect(item.textdomain()) == textdomain
-        expect(item.file()) == textdomain + "." + File.kEXTENSION
+        expect(_file).to.be.a(File)
+        expect(_file.filename) == filename
+        expect(_file.textdomain()) == textdomain
+        expect(_file.file()) == textdomain + "." + File.kEXTENSION
 
-        expect(item.items).to.be.a(list)
-        expect(len(item.items)).to.be.eq(2)
+        expect(_file.items).to.be.a(list)
+        expect(len(_file.items)).to.be.eq(4)
+
+        item = _file.items[2]
+        expect(item).to.be.a(Item)
+        expect(item.params).to.be.a(list)
+        expect(len(item.params)).to.be.eq(1)
 
     def test_that_txt_file_parser_works(self):
         fs_test = load.tests()
@@ -277,18 +282,18 @@ class TestLanguageParser:
         filename = "txt_file.txt"
         textdomain = "tests--parser--txt_file-txt"
 
-        item = LanguageParser.parse(directory, filename)
+        _file = LanguageParser.parse(directory, filename)
 
         fs_test.close()
         directory.close()
 
-        expect(item).to.be.a(File)
-        expect(item.filename) == filename
-        expect(item.textdomain()) == textdomain
-        expect(item.file()) == textdomain + "." + File.kEXTENSION
+        expect(_file).to.be.a(File)
+        expect(_file.filename) == filename
+        expect(_file.textdomain()) == textdomain
+        expect(_file.file()) == textdomain + "." + File.kEXTENSION
 
-        expect(item.items).to.be.a(list)
-        expect(len(item.items)).to.be.eq(1)
+        expect(_file.items).to.be.a(list)
+        expect(len(_file.items)).to.be.eq(1)
 
     def test_that_python_file_parser_works(self):
         fs_test = load.tests()
@@ -296,18 +301,41 @@ class TestLanguageParser:
         filename = "python_file.py.code"
         textdomain = "tests--parser--python_file-py-code"
 
-        item = LanguageParser.parse(directory, filename)
+        _file = LanguageParser.parse(directory, filename)
 
         fs_test.close()
         directory.close()
 
-        expect(item).to.be.a(File)
-        expect(item.filename) == filename
-        expect(item.textdomain()) == textdomain
-        expect(item.file()) == textdomain + "." + File.kEXTENSION
+        expect(_file).to.be.a(File)
+        expect(_file.filename) == filename
+        expect(_file.textdomain()) == textdomain
+        expect(_file.file()) == textdomain + "." + File.kEXTENSION
 
-        expect(item.items).to.be.a(list)
-        expect(len(item.items)).to.be.eq(1)
+        expect(_file.items).to.be.a(list)
+        expect(len(_file.items)).to.be.eq(3)
+
+        item = _file.items[1]
+        expect(item).to.be.a(Item)
+        expect(item.text) == "This {text} should be parsed too()"
+
+        expect(len(item.params)).to.be.eq(2)
+
+        param = item.params[0]
+        expect(param).to.be.a(Param)
+        expect(param.content) == '.format(text="text()")'
+
+        param = item.params[1]
+        expect(param).to.be.a(Param)
+        expect(param.item) == 'comment="""( groovy      )    """"'
+
+        item = _file.items[2]
+        expect(len(item.params)).to.be.eq(2)
+        expect(item.text) == "Hello {test}"
+
+        param = item.params[0]
+        expect(param).to.be.a(Param)
+
+        expect(param.item) == '.format(test=   "text(   )")'
 
     def test_that_emoji_file_parser_works(self):
         """test 😀_file.emoji"""

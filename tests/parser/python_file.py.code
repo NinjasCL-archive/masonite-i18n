@@ -1,2 +1,5 @@
 
 print(__("This text should be parsed"))
+print(__("This {text} should be parsed too()"  .format(text="text()"), comment="""( groovy      )    """"
+)
+__("Hello {test}"                       .format(test=   "text(   )"), comment="Hooray(           )"              )

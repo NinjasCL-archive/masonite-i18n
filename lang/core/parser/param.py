@@ -32,9 +32,14 @@ class Param:
 
         if should_split:
             parts = item.split("=")
-            item_content = parts[1]
+            try:
+                item_content = parts[1]
+            except IndexError:
+                pass
 
-        item_content = get_text_between_string_tags(item_content)[0]
+        if (item_content.startswith("'") or item_content.startswith('"')) and\
+            (item_content.endswith("'") or item_content.endswith('"')):
+            item_content = get_text_between_string_tags(item_content)[0]
 
         self.type = item_type
         self.content = item_content
