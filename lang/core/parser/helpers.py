@@ -31,9 +31,11 @@ def get_text_between_string_tags(haystack: str, needle=None):
 
     text = haystack[begin_pos:end_pos]
 
-    # Some times a lone " or ' char would appear in multiline strings
-    if text.startswith('"') or text.startswith("'"):
-        text = text[1:]
+    # Some times a lone " or ' char would appear in multi line strings
+    # with space before the string literal
+    if len(haystack[begin_pos:]) != len(content):
+        if text.startswith('"') or text.startswith("'"):
+            text = text[1:]
 
     return text, begin_pos, end_pos, quotes, begins_with_a_string_literal
 

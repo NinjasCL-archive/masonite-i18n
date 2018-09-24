@@ -271,8 +271,15 @@ class TestLanguageParser:
         expect(_file.items).to.be.a(list)
         expect(len(_file.items)).to.be.eq(4)
 
+        item = _file.items[1]
+        expect(item).to.be.a(Item)
+        expect(item.text) == "'This text also should be parsed 1"
+
         item = _file.items[2]
         expect(item).to.be.a(Item)
+        expect(item.text) == ''''
+                    This text also should be parsed 2"
+                '''
         expect(item.params).to.be.a(list)
 
         print(item.text.encode())
