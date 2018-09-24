@@ -3,17 +3,18 @@
 
 from the import expect
 
-from lang.core.parser import LanguageParser
 from lang.core.parser.file import File
 from lang.core.parser.item import Item
 from lang.core.parser.param import Param
 from lang.helpers import open_or_make_dir
 from lang.helpers.filesystem import load
 
+from lang.core import parser
 
-class TestLanguageParser:
+
+class TestParser:
     def setup_method(self):
-        self.tag_simple = LanguageParser.kTAG_SIMPLE
+        self.tag_simple = parser.kTAG_SIMPLE
         self.sample_text = "This text should be parsed"
 
     def simple_text_single_quote(self, text=None):
@@ -34,7 +35,7 @@ class TestLanguageParser:
 
     def simple_text_test(self, translation, text):
 
-        result = LanguageParser.get_translation_function_calls(translation, self.tag_simple)
+        result = parser.get_translation_function_calls(translation, self.tag_simple)
 
         expect(result).to.be.a(list)
         expect(result).to.be.NOT.empty
@@ -55,7 +56,7 @@ class TestLanguageParser:
 
     def test_that_empty_returns_zero_items(self):
         text = ""
-        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
+        result = parser.get_translation_function_calls(text, self.tag_simple)
         expect(result).to.be.a(list)
         expect(len(result)).to.be.eq(0)
 
@@ -94,7 +95,7 @@ class TestLanguageParser:
             Hello this should be __('Parsed') successfully.
             Two function __("Calls") with different quotes.
         """
-        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
+        result = parser.get_translation_function_calls(text, self.tag_simple)
 
         expect(result).to.be.a(list)
         expect(result).to.be.NOT.empty
@@ -123,7 +124,7 @@ class TestLanguageParser:
                 Hello this should be {{__('Parsed')}} successfully.
                 Two function {{__("Calls")}} with different quotes.
             """
-        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
+        result = parser.get_translation_function_calls(text, self.tag_simple)
 
         expect(result).to.be.a(list)
         expect(result).to.be.NOT.empty
@@ -153,7 +154,7 @@ class TestLanguageParser:
                 My Note''')}} successfully.
                 Two function {{__("Calls", "Comment")}} with different quotes.
             """
-        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
+        result = parser.get_translation_function_calls(text, self.tag_simple)
 
         expect(result).to.be.a(list)
         expect(result).to.be.NOT.empty
@@ -233,7 +234,7 @@ class TestLanguageParser:
                 My Note''')}}.
             """
 
-        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
+        result = parser.get_translation_function_calls(text, self.tag_simple)
 
         item = result[0]
         params = item.params
@@ -245,7 +246,7 @@ class TestLanguageParser:
         text = '__("Hello")'
         sha256 = "185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969"
 
-        result = LanguageParser.get_translation_function_calls(text, self.tag_simple)
+        result = parser.get_translation_function_calls(text, self.tag_simple)
         item = result[0]
 
         expect(item.hash()) == sha256
@@ -258,7 +259,7 @@ class TestLanguageParser:
         filename = "html_file.html"
         textdomain = "tests--parser--html_file-html"
 
-        _file = LanguageParser.parse(directory, filename)
+        _file = parser.parse(directory, filename)
 
         fs_test.close()
         directory.close()
@@ -291,7 +292,7 @@ class TestLanguageParser:
         filename = "txt_file.txt"
         textdomain = "tests--parser--txt_file-txt"
 
-        _file = LanguageParser.parse(directory, filename)
+        _file = parser.parse(directory, filename)
 
         fs_test.close()
         directory.close()
@@ -310,7 +311,7 @@ class TestLanguageParser:
         filename = "python_file.py.code"
         textdomain = "tests--parser--python_file-py-code"
 
-        _file = LanguageParser.parse(directory, filename)
+        _file = parser.parse(directory, filename)
 
         fs_test.close()
         directory.close()
@@ -353,7 +354,7 @@ class TestLanguageParser:
         filename = "😀_file.emoji"
         textdomain = "tests--parser--😀_file-emoji"
 
-        item = LanguageParser.parse(directory, filename)
+        item = parser.parse(directory, filename)
 
         fs_test.close()
         directory.close()
