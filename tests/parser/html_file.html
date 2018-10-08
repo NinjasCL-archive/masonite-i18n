@@ -23,13 +23,19 @@
                 ''', comment="'This comment', '''should''' be just one comment") }}
         </p>
         <p>
-           {{ __("This text also should be parsed 3 {text}".format(text="'''true''', or false"),
-                comment="This comment, should exist {}"
-                .format("do not use them like this. It would mess the comment, section.")
-            }}
+           {{__("This text also should be parsed 3 {text}".format(text="'''true''', or false"),
+            comment="This comment, should exist {}".format("do not use them like this. It would mess the comment}}, section.")) }}
         </p>
         <p>
            {{ __(This_is_not_a_string_literal_and_should_not_be_parsed_4) }}
+        </p>
+
+        <p>
+           {{ __("This have unbalanced parenthesis, should not be parsed" }}
+        </p>
+
+        <p>
+           {{ __("This have unbalanced string, should not be parsed) }}
         </p>
 
     </div>

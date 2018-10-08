@@ -9,12 +9,17 @@ translatable text function calls and their optional params.
 from lang.core.parser.param import Param
 from lang.core.parser.item import Item
 from lang.core.parser.file import File
-from lang.core.parser.helpers import get_text_between_string_tags, \
-    get_last_parenthesis_position, get_trailing_components
-
+from lang.core.parser.helpers import (
+    get_text_between_string_tags,
+    get_last_parenthesis_position,
+)
 
 kTAG_SIMPLE = "__("
 kTAG_PLURAL = "_n("
+
+
+def step(haystack: str, needle: str, index: int):
+    return haystack.find(needle, index + 1)
 
 
 def get_translation_function_calls(haystack: str, needle: str):
@@ -43,44 +48,34 @@ def get_translation_function_calls(haystack: str, needle: str):
         # First we need the translatable string
         content = haystack[index:]
 
-        text, begin_pos, end_pos, quotes, begins_with_a_string_literal = get_text_between_string_tags(
-            content, needle
-        )
+        try:
+            result = get_text_between_string_tags(content, needle)
+            # Only parse functions with balanced parenthesis
+            final_pos = get_last_parenthesis_position(content)
 
-        if not begins_with_a_string_literal:
-            index = haystack.find(needle, index + 1)
+        except (SyntaxError, ValueError, IndexError):
+            # Unbalanced quotes, parenthesis or wrong syntax found
+            index = step(haystack, needle, index)
             continue
 
-        init_pos = end_pos + len(quotes)
-        final_pos = get_last_parenthesis_position(content)
-        params = content[init_pos : final_pos]
+        init_pos = result.end + len(result.quotes)
+        params = content[init_pos:final_pos].strip()
 
-        get_trailing_components(params)
-
-        params = params.split(",")
-
-        # Parse the param contents to simplify handling later
-        items = []
-
-        for sort, obj in enumerate(params):
-                obj = obj.strip()
-                if obj == "":
-                    continue
-                _param = Param(sort=sort - 1, item=obj)
-                items.append(_param)
+        if len(params) > 0:
+            params = Param.get_params(params)
 
         _item = Item(
-            quotes=quotes,
-            begin=begin_pos,
-            end=end_pos,
-            text=text,
-            params=items,
+            quotes=result.quotes,
+            begin=result.begin,
+            end=result.end,
+            text=result.text,
+            params=params,
             needle=needle,
         )
 
         results.append(_item)
 
-        index = haystack.find(needle, index + 1)
+        index = step(haystack, needle, index)
 
     return results
 
@@ -101,8 +96,9 @@ def parse(fs, filename: str):
     content = fs.gettext(filename)
 
     # TODO: Implement more tags in the future
+
     items = get_translation_function_calls(content, kTAG_SIMPLE)
 
-    result = File(filename, path, items)
+    result = File(filename, path, items, content)
 
     return result

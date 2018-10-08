@@ -10,14 +10,16 @@ class File:
     items = None
     filename = None
     path = None
+    content = None
 
-    def __init__(self, filename, path, items=None):
+    def __init__(self, filename, path, items=None, content=None):
         self.items = items
         self.filename = filename
         self.path = path
+        self.content = content
 
     def __repr__(self):
-        return self.textdomain()
+        return "%s %s > %s" % (self.textdomain(), self.items, self.content)
 
     def textdomain(self):
 

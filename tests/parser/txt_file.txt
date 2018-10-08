@@ -1,1 +1,2 @@
 __("This text should be parsed")
+__("This is an error"
