@@ -57,7 +57,9 @@ class Param:
         sort = 0
         for index, token in enumerate(tokens):
 
-            string = token.string.lower()
+            string = token.string.lower().strip()
+            if string == "":
+                continue
 
             if token.type == tokenize.NAME:
 
