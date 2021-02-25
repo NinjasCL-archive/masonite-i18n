@@ -47,7 +47,7 @@ Internationalisation in a software application covers the ability to communicate
 - Level 2: Multi-lingual - the software can work in several languages at the same time, and the application database contains translations of relevant text in all the supported languages. The relevant translation is retrieved as required.
 
 
-## Core Desing
+## Core Design
 The main design is inspired on the implementations used in different projects, mainly: [Processwire](https://processwire.com), [Laravel](https://laravel.com) and [Rails](https://rubyonrails.org/). The goal is having a system that could be easily used and implement only the parts that are needed for a strong i18n support in *static* files. Unlike other frameworks or tools that try to do too much, this implementation will rely on the tools already provided by Python focusing only in the translation helpers. You could see the original discussion topic [here](https://github.com/MasoniteFramework/core/issues/235).
 
 ### Convention over configuration
@@ -183,7 +183,7 @@ The content of each translation file would be similar to the following example:
 
 `file` 
 
-Would store the path to the file beign translated.
+Would store the path to the file being translated.
 
 `textdomain`
 
